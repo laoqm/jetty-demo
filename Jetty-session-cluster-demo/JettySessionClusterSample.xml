@@ -1,0 +1,22 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN"
+   "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+<Set name="contextPath">/JettySessionClusterSample</Set>
+<Set name="war"><Property name="jetty.webapps" default="."/>/Jetty-session-cluster-demo.war</Set>
+<Ref id="Server">
+  <Call id="idMgr" name="getSessionIdManager"/>
+</Ref>
+<Set name="sessionHandler">
+  <New class="org.eclipse.jetty.server.session.SessionHandler">
+    <Arg>
+      <New id="jdbcmgr" class="org.eclipse.jetty.server.session.JDBCSessionManager">
+        <Set name="sessionIdManager">
+          <Ref id="idMgr"/>
+        </Set>
+      </New>
+    </Arg>
+  </New>
+</Set>
+</Configure>
+
